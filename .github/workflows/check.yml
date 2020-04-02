@@ -1,4 +1,4 @@
-name: check
+name: format_and_lint
 on: [push, pull_request]
 
 jobs:
