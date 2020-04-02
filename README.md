@@ -1,5 +1,5 @@
 # terraform-aws-fortigate-vpn
-
+[![GH Action Status](https://github.com/rhythmictech/terraform-aws-fortigate-vpn/workflows/check/badge.svg)](https://github.com/rhythmictech/terraform-aws-fortigate-vpn/actions)
 Creates a site-to-site VPN connection intended to terminate to a FortiGate firewall. Creates a template configuration file that can be used to easily configure the connection.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
