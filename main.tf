@@ -1,9 +1,11 @@
 data "aws_vpn_gateway" "this" {
-  id = var.vgw_id
+  count = var.vgw_id == null ? 0 : 1
+  id    = var.vgw_id
 }
 
 data "aws_ec2_transit_gateway" "this" {
-  id = var.transit_gateway_id
+  count = var.transit_gateway_id == null ? 0 : 1
+  id    = var.transit_gateway_id
 }
 
 module "psk1" {
@@ -40,7 +42,7 @@ locals {
   tunnel2_psk = var.use_secrets_manager ? module.psk2.secret : var.tunnel2_psk
 
   # compute aws bgp asn
-  amazon_bgp_asn = var.vgw_id == null ? data.aws_ec2_transit_gateway.this.amazon_side_asn : data.aws_vpn_gateway.this.amazon_side_asn
+  amazon_bgp_asn = var.vgw_id == null ? data.aws_ec2_transit_gateway.this[0].amazon_side_asn : data.aws_vpn_gateway.this[0].amazon_side_asn
 }
 
 resource "aws_customer_gateway" "this" {
