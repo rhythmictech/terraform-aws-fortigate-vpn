@@ -31,7 +31,7 @@ config system interface
   set type tunnel
   set tcp-mss 1379
   set remote-ip ${tunnel1_inside_address_amazon} 255.255.255.255
-  set comments "${account_name}<->${customer_name}1"
+  set description "${account_name}<->${customer_name}1"
   set interface "${wan_interface}"
  next
 end
