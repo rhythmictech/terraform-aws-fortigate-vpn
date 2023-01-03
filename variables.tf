@@ -31,7 +31,9 @@ variable "generate_fortigate_config" {
 }
 
 variable "tags" {
+  default     = {}
   description = "Tags to add to supported resources"
+  type        = map(string)
 }
 
 variable "transit_gateway_id" {

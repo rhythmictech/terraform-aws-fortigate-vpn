@@ -8,6 +8,7 @@ data "aws_ec2_transit_gateway" "this" {
   id    = var.transit_gateway_id
 }
 
+#tfsec:ignore:aws-ssm-secret-use-customer-key
 module "psk1" {
   source           = "git::https://github.com/rhythmictech/terraform-aws-secretsmanager-random-secret?ref=v1.1.1"
   name             = "${var.account_name}/${var.customer_name}-psk1-secret"
@@ -20,6 +21,7 @@ module "psk1" {
   tags             = var.tags
 }
 
+#tfsec:ignore:aws-ssm-secret-use-customer-key
 module "psk2" {
   source           = "git::https://github.com/rhythmictech/terraform-aws-secretsmanager-random-secret?ref=v1.1.1"
   name             = "${var.account_name}/${var.customer_name}-psk2-secret"
