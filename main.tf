@@ -1,10 +1,10 @@
 data "aws_vpn_gateway" "this" {
-  count = var.vgw_id == null ? 0 : 1
+  count = var.use_tgw ? 0 : 1
   id    = var.vgw_id
 }
 
 data "aws_ec2_transit_gateway" "this" {
-  count = var.transit_gateway_id == null ? 0 : 1
+  count = var.use_tgw ? 1 : 0
   id    = var.transit_gateway_id
 }
 
@@ -40,8 +40,11 @@ locals {
     "Name" = "${var.account_name}<=>${var.customer_name}"
     }
   )
+
+  tgw_id      = var.use_tgw ? var.transit_gateway_id : null
   tunnel1_psk = var.use_secrets_manager ? module.psk1.secret : var.tunnel1_psk
   tunnel2_psk = var.use_secrets_manager ? module.psk2.secret : var.tunnel2_psk
+  vgw_id      = var.use_tgw ? null : var.vgw_id
 
   # compute aws bgp asn
   amazon_bgp_asn = try(data.aws_ec2_transit_gateway.this[0].amazon_side_asn, data.aws_vpn_gateway.this[0].amazon_side_asn)
@@ -57,13 +60,13 @@ resource "aws_customer_gateway" "this" {
 resource "aws_vpn_connection" "this" {
   customer_gateway_id   = aws_customer_gateway.this.id
   tags                  = local.tags_with_name
-  transit_gateway_id    = var.transit_gateway_id
+  transit_gateway_id    = local.tgw_id
   tunnel1_inside_cidr   = var.tunnel1_inside_cidr
   tunnel1_preshared_key = local.tunnel1_psk
   tunnel2_inside_cidr   = var.tunnel2_inside_cidr
   tunnel2_preshared_key = local.tunnel2_psk
   type                  = aws_customer_gateway.this.type
-  vpn_gateway_id        = var.vgw_id
+  vpn_gateway_id        = local.vgw_id
 }
 
 resource "local_file" "this" {

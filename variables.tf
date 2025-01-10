@@ -95,3 +95,9 @@ variable "wan_interface" {
   description = "WAN interface to use in fortigate config template"
   type        = string
 }
+
+variable "use_tgw" {
+  default     = false
+  description = "Set to true if attaching the VPN to a Transit Gateway"
+  type        = bool
+}

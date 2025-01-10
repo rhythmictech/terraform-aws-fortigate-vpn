@@ -60,6 +60,7 @@ Creates a site-to-site VPN connection intended to terminate to a FortiGate firew
 | <a name="input_tunnel2_psk"></a> [tunnel2\_psk](#input\_tunnel2\_psk) | Specify a Tunnel 2 PSK explicitly (optional) | `string` | `""` | no |
 | <a name="input_tunnel2_psk_version"></a> [tunnel2\_psk\_version](#input\_tunnel2\_psk\_version) | Version to use for PSK (increment to generate a new PSK) | `number` | `1` | no |
 | <a name="input_use_secrets_manager"></a> [use\_secrets\_manager](#input\_use\_secrets\_manager) | Use Secrets Manager to store/manage PSKs | `bool` | `true` | no |
+| <a name="input_use_tgw"></a> [use\_tgw](#input\_use\_tgw) | Set to true if attaching the VPN to a Transit Gateway | `bool` | `false` | no |
 | <a name="input_vgw_id"></a> [vgw\_id](#input\_vgw\_id) | Virtual Private Gateway to attach VPN to (required if `transit_gateway_id` not set) | `string` | `null` | no |
 | <a name="input_wan_interface"></a> [wan\_interface](#input\_wan\_interface) | WAN interface to use in fortigate config template | `string` | `"wan1"` | no |
 
