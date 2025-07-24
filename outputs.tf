@@ -27,11 +27,12 @@ output "vpn_connection_tunnel1_cgw_inside_address" {
   value       = aws_vpn_connection.this.tunnel1_cgw_inside_address
 }
 
+/*
 output "vpn_connection_tunnel1_preshared_key" {
   description = "Tunnel 1 Preshared Key"
   value       = aws_vpn_connection.this.tunnel1_preshared_key
 }
-
+*/
 output "vpn_connection_tunnel1_vgw_inside_address" {
   description = "Tunnel 1 AWS Inside IP Address"
   value       = aws_vpn_connection.this.tunnel1_vgw_inside_address
@@ -51,12 +52,12 @@ output "vpn_connection_tunnel2_cgw_inside_address" {
   description = "Tunnel 2 Customer Inside IP Address"
   value       = aws_vpn_connection.this.tunnel2_cgw_inside_address
 }
-
+/*
 output "vpn_connection_tunnel2_preshared_key" {
   description = "Tunnel 2 Preshared Key"
   value       = aws_vpn_connection.this.tunnel2_preshared_key
 }
-
+*/
 output "vpn_connection_tunnel2_vgw_inside_address" {
   description = "Tunnel 2 AWS Inside IP Address"
   value       = aws_vpn_connection.this.tunnel2_vgw_inside_address
