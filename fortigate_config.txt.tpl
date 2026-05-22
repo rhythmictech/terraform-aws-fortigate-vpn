@@ -1,24 +1,29 @@
 config vpn ipsec phase1-interface
  edit "${shortname}1"
   set interface "${wan_interface}"
-  set dpd enable
+  set ike-version 2
   set local-gw ${customer_ip_address}
-  set dhgrp 2
-  set proposal aes128-sha1
   set keylife 28800
+  set proposal aes256-sha256
+  set ip-fragmentation pre-encapsulation
+  set dpd on-idle
+  set comments "${account_name}<->${customer_name}1"
+  set dhgrp 20
+  set nattraversal disable
   set remote-gw ${tunnel1_address}
   set psksecret PSK1
   set dpd-retryinterval 10
-  set comments "${account_name}<->${customer_name}1"
  next
 end
 
 config vpn ipsec phase2-interface
  edit "${shortname}1"
   set phase1name "${shortname}1"
-  set proposal aes128-sha1
-  set dhgrp 2
+  set proposal aes256-sha256
+  set dhgrp 20
   set pfs enable
+  set replay enable
+  set auto-negotiate enable
   set keylifeseconds 3600
  next
 end
@@ -29,7 +34,9 @@ config system interface
   set ip ${tunnel1_inside_address_customer} 255.255.255.255
   set allowaccess ping
   set type tunnel
-  set tcp-mss 1379
+  set tcp-mss 1398
+  set mtu-override enable
+  set mtu 1438
   set remote-ip ${tunnel1_inside_address_amazon} 255.255.255.255
   set description "${account_name}<->${customer_name}1"
   set interface "${wan_interface}"
@@ -49,24 +56,29 @@ end
 config vpn ipsec phase1-interface
 edit "${shortname}2"
   set interface "${wan_interface}"
-  set dpd enable
+  set ike-version 2
   set local-gw ${customer_ip_address}
-  set dhgrp 2
-  set proposal aes128-sha1
   set keylife 28800
+  set proposal aes256-sha256
+  set ip-fragmentation pre-encapsulation
+  set dpd on-idle
+  set comments "${account_name}<->${customer_name}2"
+  set dhgrp 20
+  set nattraversal disable
   set remote-gw ${tunnel2_address}
   set psksecret PSK2
   set dpd-retryinterval 10
-  set comments "${account_name}<->${customer_name}2"
  next
 end
 
 config vpn ipsec phase2-interface
  edit "${shortname}2"
   set phase1name "${shortname}2"
-  set proposal aes128-sha1
-  set dhgrp 2
+  set proposal aes256-sha256
+  set dhgrp 20
   set pfs enable
+  set replay enable
+  set auto-negotiate enable
   set keylifeseconds 3600
  next
 end
@@ -77,7 +89,9 @@ config system interface
   set ip ${tunnel2_inside_address_customer} 255.255.255.255
   set allowaccess ping
   set type tunnel
-  set tcp-mss 1379
+  set tcp-mss 1398
+  set mtu-override enable
+  set mtu 1438
   set remote-ip ${tunnel2_inside_address_amazon} 255.255.255.255
   set interface "${wan_interface}"
   set description "${account_name}<->${customer_name}2"
